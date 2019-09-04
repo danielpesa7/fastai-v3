@@ -60,8 +60,10 @@ async def analyze(request):
     img_data = await request.form()
     img_bytes = await (img_data['file'].read())
     img = open_image(BytesIO(img_bytes))
+    img = img.resize((3,224,224))
     prediction = learn.predict(img)[0]
-    return JSONResponse({'result': str(prediction)})
+    confidence = torch.max(learn.predict(img)[2])
+    return JSONResponse({'result': str(prediction), 'confidence': float("{0:.3f}".format(confidence))})
 
 
 if __name__ == '__main__':
