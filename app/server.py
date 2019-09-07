@@ -63,7 +63,8 @@ async def analyze(request):
     img = img.resize((3,224,224))
     prediction = learn.predict(img)[0]
     confidence = torch.max(learn.predict(img)[2])
-    return JSONResponse({'result': str(prediction), 'confidence': float("{0:.3f}".format(confidence))})
+    confidence_all = learn.predict(img)
+    return JSONResponse({'result': str(prediction), 'confidence': float("{0:.3f}".format(confidence)), 'confidence_all' : str(confidence_all)})
 
 
 if __name__ == '__main__':

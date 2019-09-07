@@ -31,6 +31,8 @@ function analyze() {
       var response = JSON.parse(e.target.responseText);
       el("result-label").innerHTML = `Result = ${response["result"]}`;
       el("confidence-label").innerHTML = `Confidence = ${response["confidence"]}`;
+      console.log(response["confidence_all"])
+      console.log(['cardboard', 'glass', 'metal', 'paper', 'plastic', 'trash'])
     }
     el("analyze-button").innerHTML = "Analyze";
   };
